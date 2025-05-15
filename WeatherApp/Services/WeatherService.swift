@@ -5,8 +5,8 @@
 //  Created by Joshua Cleetus on 5/15/25.
 //
 
-import Foundation
 import CoreLocation
+import Foundation
 
 class WeatherService {
     func fetchForecast(for location: CLLocationCoordinate2D, completion: @escaping (Result<WeatherResponse, Error>) -> Void) {

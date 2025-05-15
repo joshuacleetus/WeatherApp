@@ -23,12 +23,18 @@ final class WeatherAppUITests: XCTestCase {
     }
 
     @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func testForecastListAppears() throws {
         let app = XCUIApplication()
         app.launch()
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        // Assert the title exists
+        let title = app.staticTexts["7 Day Forecast"]
+        XCTAssertTrue(title.exists)
+
+        // Wait for the first row (forecast day) to appear
+        let firstCell = app.cells.element(boundBy: 0)
+        let exists = firstCell.waitForExistence(timeout: 5)
+        XCTAssertTrue(exists, "Expected forecast row to load in list")
     }
 
     @MainActor

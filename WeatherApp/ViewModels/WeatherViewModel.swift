@@ -5,8 +5,8 @@
 //  Created by Joshua Cleetus on 5/15/25.
 //
 
-import Foundation
 import CoreLocation
+import Foundation
 
 class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var forecastDays: [ForecastDay] = []
