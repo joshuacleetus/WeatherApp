@@ -33,9 +33,19 @@ struct Day: Decodable {
     let maxtempF: Double
     let mintempF: Double
     let condition: Condition
-    let daily_chance_of_rain: String?
-    let daily_chance_of_snow: String?
+    let dailyChanceOfRain: Int?
+    let dailyChanceOfSnow: Int?
     let avghumidity: Double
+
+    enum CodingKeys: String, CodingKey {
+        case avgtempF = "avgtemp_f"
+        case maxtempF = "maxtemp_f"
+        case mintempF = "mintemp_f"
+        case condition
+        case dailyChanceOfRain = "daily_chance_of_rain"
+        case dailyChanceOfSnow = "daily_chance_of_snow"
+        case avghumidity
+    }
 }
 
 struct Condition: Decodable {
@@ -54,9 +64,15 @@ class WeatherService {
                 completion(.failure(error))
                 return
             }
-            
-            guard let data = data else { return }
-            
+
+            guard let data = data else {
+                completion(.failure(NSError(domain: "Empty data", code: 0)))
+                return
+            }
+
+            // 👇 Debug output
+            print(String(data: data, encoding: .utf8) ?? "No printable data")
+
             do {
                 let response = try JSONDecoder().decode(WeatherResponse.self, from: data)
                 completion(.success(response))
