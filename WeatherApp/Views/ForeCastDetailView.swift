@@ -26,9 +26,10 @@ struct ForecastDetailView: View {
             .frame(width: 100, height: 100)
 
             Text(day.day.condition.text)
+            let avgTemp = isFahrenheit ? Int(day.day.avgtempF) : Int((day.day.avgtempF - 32) * 5 / 9)
             let maxTemp = isFahrenheit ? Int(day.day.maxtempF) : Int((day.day.maxtempF - 32) * 5 / 9)
             let minTemp = isFahrenheit ? Int(day.day.mintempF) : Int((day.day.mintempF - 32) * 5 / 9)
-            Text("Max: \(maxTemp)° | Min: \(minTemp)°")
+            Text("Avg: \(avgTemp)° | Max: \(maxTemp)° | Min: \(minTemp)°")
             Text("Rain: \(day.day.dailyChanceOfRain ?? 0)% | Snow: \(day.day.dailyChanceOfSnow ?? 0)%")
             Text("Humidity: \(Int(day.day.avghumidity))%")
         }
