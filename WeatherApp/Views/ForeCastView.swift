@@ -40,7 +40,8 @@ struct ForecastView: View {
                                 VStack(alignment: .leading) {
                                     Text(day.date)
                                     Text(day.day.condition.text)
-                                    Text("Avg Temp: \(formattedTemp(day.day.avgtempF))°")
+                                    Text(tempSummary(for: day.day))
+                                        .font(.footnote)
                                 }
                             }
                         }
@@ -51,7 +52,12 @@ struct ForecastView: View {
         }
     }
     
-    func formattedTemp(_ f: Double) -> Int {
-        isFahrenheit ? Int(f) : Int((f - 32) * 5 / 9)
+    private func tempSummary(for day: Day) -> String {
+        let avg = isFahrenheit ? Int(day.avgtempF) : Int((day.avgtempF - 32) * 5 / 9)
+        let min = isFahrenheit ? Int(day.mintempF) : Int((day.mintempF - 32) * 5 / 9)
+        let max = isFahrenheit ? Int(day.maxtempF) : Int((day.maxtempF - 32) * 5 / 9)
+
+        return "Avg: \(avg)° | Min: \(min)° | Max: \(max)°"
     }
+
 }
